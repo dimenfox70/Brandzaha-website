@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Block internal directories
+Disallow: /partials/
+Disallow: /data/
+Disallow: /send_mail.php
+
+Sitemap: https://www.brandzaha.com/sitemap.xml
