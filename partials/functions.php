@@ -88,6 +88,10 @@ function bz_icon(string $name, int $size = 24): string {
         'clock'    => '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
         'check'    => '<path d="M20 6L9 17l-5-5"/>',
         'spark'    => '<path d="M12 3v6M12 15v6M3 12h6M15 12h6"/>',
+        'cart'     => '<circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.4 12.4a1.5 1.5 0 0 0 1.5 1.2h8.2a1.5 1.5 0 0 0 1.5-1.2L21.5 7H6"/>',
+        'bag'      => '<path d="M6 8h12l-.7 12.1a1.5 1.5 0 0 1-1.5 1.4H8.2a1.5 1.5 0 0 1-1.5-1.4z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>',
+        'bolt'     => '<path d="M13 2L4 14h6l-1 8 9-12h-6z"/>',
+        'layers'   => '<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/>',
     ];
     $path = $icons[$name] ?? $icons['spark'];
     return '<svg width="' . $s . '" height="' . $s . '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' . $path . '</svg>';

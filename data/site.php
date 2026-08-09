@@ -42,6 +42,7 @@ return [
         ['label' => 'Home',        'url' => '/',            'highlight' => false],
         ['label' => 'Work',        'url' => '/work/',       'highlight' => false],
         ['label' => 'Services',    'url' => '/services/',   'highlight' => false],
+        ['label' => 'E-commerce',  'url' => '/ecommerce-development-jaipur/', 'highlight' => false],
         ['label' => 'About',       'url' => '/about/',      'highlight' => false],
         ['label' => 'Blog',        'url' => '/blog/',       'highlight' => false],
         ['label' => 'Contact',     'url' => '/contact/',    'highlight' => false],

@@ -44,6 +44,9 @@ DirectoryIndex index.php
   RewriteRule ^blog/?$                    blog.php            [L,QSA]
   RewriteRule ^contact/?$                 contact.php         [L,QSA]
 
+  # ---- E-commerce flagship page ----
+  RewriteRule ^ecommerce-development-jaipur/?$ ecommerce.php  [L,QSA]
+
   # ---- SEO landing pages (kept URLs) -> single template ----
   RewriteRule ^(web-development-jaipur|digital-marketing-jaipur|graphic-designing-jaipur|mobile-app-development-jaipur|influencer-marketing-jaipur|content-strategy-jaipur|cyber-security-jaipur|software-development-jaipur|it-training-jaipur)/?$ service-landing.php?service=$1 [L,QSA]
 

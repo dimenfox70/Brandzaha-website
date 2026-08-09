@@ -20,6 +20,7 @@ $add = function (string $loc, string $prio = '0.7', string $freq = 'monthly') us
 $add('/', '1.0', 'weekly');
 $add('/work/', '0.9', 'weekly');
 $add('/services/', '0.8', 'monthly');
+$add('/ecommerce-development-jaipur/', '0.9', 'monthly');
 $add('/about/', '0.7', 'monthly');
 $add('/blog/', '0.7', 'weekly');
 $add('/contact/', '0.6', 'yearly');

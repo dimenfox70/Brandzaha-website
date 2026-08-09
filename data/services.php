@@ -16,6 +16,15 @@ return [
         'points'  => ['Custom websites', 'PHP web apps', 'E-commerce', 'Performance & Core Web Vitals'],
     ],
     [
+        'title'   => 'E-commerce Stores',
+        'slug'    => 'ecommerce-development-jaipur',
+        'url'     => '/ecommerce-development-jaipur/',
+        'icon'    => 'cart',
+        'tagline' => 'Shopify · WooCommerce · Next.js',
+        'summary' => 'Online stores that convert — from fast Shopify builds to fully custom headless commerce.',
+        'points'  => ['Shopify & Shopify Plus', 'WooCommerce', 'Headless Next.js stores', 'Payments & migration'],
+    ],
+    [
         'title'   => 'Digital Marketing',
         'slug'    => 'digital-marketing-jaipur',
         'url'     => '/digital-marketing-jaipur/',
