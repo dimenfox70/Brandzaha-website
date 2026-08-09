@@ -64,20 +64,74 @@ require $ROOT . '/partials/header.php';
 ?>
 <main id="main">
 
-  <!-- HERO -->
-  <section class="page-head wrap">
-    <div class="glow hero__glow-a" aria-hidden="true" style="opacity:.2"></div>
-    <p class="eyebrow reveal">E-commerce · Jaipur</p>
-    <h1 class="page-head__title" data-split data-split-hero>Stores that<br><span class="text-accent">sell.</span></h1>
-    <p class="page-head__lead lead reveal" data-delay="120">We design and build online stores that turn browsers into buyers — on <strong>Shopify</strong>, <strong>WooCommerce</strong>, or a fully custom <strong>Next.js</strong> headless build. Fast, beautiful, and made to scale.</p>
-    <div class="pill-row mt-3 reveal" data-delay="160">
-      <span class="pill"><?= bz_icon('bag', 16) ?> Shopify &amp; Shopify Plus</span>
-      <span class="pill"><?= bz_icon('cart', 16) ?> WooCommerce</span>
-      <span class="pill"><?= bz_icon('bolt', 16) ?> Headless Next.js</span>
+  <!-- HERO (animated showpiece) -->
+  <?php $storePoster = poster_svg(['#1a1207', '#3a2410', '#e7c65b'], '', 'aurum-store'); ?>
+  <section class="ecom-hero wrap" data-pointer-scene>
+    <div class="ecom-hero__text">
+      <p class="eyebrow reveal">E-commerce · Jaipur</p>
+      <h1 class="page-head__title" data-split data-split-hero>Stores that<br><span class="text-accent">sell.</span></h1>
+      <p class="page-head__lead lead reveal" data-delay="120">We design and build online stores that turn browsers into buyers — on <strong>Shopify</strong>, <strong>WooCommerce</strong>, or a fully custom <strong>Next.js</strong> headless build. Fast, beautiful, and made to scale.</p>
+      <div class="pill-row mt-3 reveal" data-delay="160">
+        <span class="pill"><?= bz_icon('bag', 16) ?> Shopify &amp; Shopify Plus</span>
+        <span class="pill"><?= bz_icon('cart', 16) ?> WooCommerce</span>
+        <span class="pill"><?= bz_icon('bolt', 16) ?> Headless Next.js</span>
+      </div>
+      <div class="mt-3 reveal" data-delay="200" style="display:flex;gap:1rem;flex-wrap:wrap">
+        <a href="#enquire" class="btn" data-magnetic="0.3"><span class="btn__label">Start your store</span> <span class="btn__arrow" aria-hidden="true">↗</span></a>
+        <a href="#work" class="btn btn--ghost" data-magnetic="0.3"><span class="btn__label">See store work</span></a>
+      </div>
     </div>
-    <div class="mt-3 reveal" data-delay="200" style="display:flex;gap:1rem;flex-wrap:wrap">
-      <a href="#enquire" class="btn" data-magnetic="0.3"><span class="btn__label">Start your store</span> <span class="btn__arrow" aria-hidden="true">↗</span></a>
-      <a href="#work" class="btn btn--ghost" data-magnetic="0.3"><span class="btn__label">See store work</span></a>
+
+    <div class="ecom-hero__visual" aria-hidden="true">
+      <div class="ecom-glow" data-depth="6"></div>
+
+      <!-- Big Shopify mark, half off the right edge, floating with shadow -->
+      <div class="shopify-mark" data-depth="16">
+        <svg class="shopify-mark__img" viewBox="0 0 300 348" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Shopify">
+          <defs>
+            <linearGradient id="bzShop" x1="0.15" y1="0" x2="0.5" y2="1">
+              <stop offset="0" stop-color="#95BF47"/><stop offset="1" stop-color="#5E8E3E"/>
+            </linearGradient>
+          </defs>
+          <!-- handle -->
+          <path d="M112 96 V74 a38 38 0 0 1 76 0 V96" fill="none" stroke="#4c7a2f" stroke-width="17" stroke-linecap="round"/>
+          <!-- bag body -->
+          <path d="M66 90 h168 a16 16 0 0 1 15.9 14.6 l16 210 a20 20 0 0 1 -19.9 21.4 H54 a20 20 0 0 1 -19.9 -21.4 l16 -210 A16 16 0 0 1 66 90 z" fill="url(#bzShop)"/>
+          <!-- top sheen -->
+          <path d="M66 90 h168 a16 16 0 0 1 15.9 14.6 l1.6 21 H48.5 l1.6 -21 A16 16 0 0 1 66 90 z" fill="#a9cf5e" opacity=".45"/>
+          <!-- S -->
+          <text x="150" y="262" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="158" fill="#ffffff">S</text>
+        </svg>
+      </div>
+
+      <!-- Phone mockup showing a live store screen -->
+      <div class="phone" data-depth="30">
+        <div class="phone__inner">
+          <div class="phone__frame">
+            <span class="phone__notch"></span>
+            <div class="phone__screen">
+              <div class="store">
+                <div class="store__bar">
+                  <span class="store__logo">AURUM</span>
+                  <span class="store__cart"><?= bz_icon('bag', 18) ?><b>2</b></span>
+                </div>
+                <div class="store__hero" style="background-image:url('<?= $storePoster ?>')">
+                  <span class="store__tag">NEW IN</span>
+                </div>
+                <div class="store__body">
+                  <div class="store__row"><span class="store__title">Linen Overcoat</span><span class="store__stars">★★★★★</span></div>
+                  <div class="store__row"><span class="store__price">₹4,999 <s>₹7,499</s></span><span class="store__stars" style="color:var(--ink-dim)">128 reviews</span></div>
+                  <div class="store__btn">Add to cart</div>
+                  <div class="store__grid"><i></i><i></i><i></i></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <span class="ecom-chip ecom-chip--a" data-depth="44"><span class="dot"></span> +52% conversion</span>
+      <span class="ecom-chip ecom-chip--b" data-depth="52"><span class="dot"></span> 1.5s load time</span>
     </div>
   </section>
 

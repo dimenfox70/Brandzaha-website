@@ -56,7 +56,7 @@ $services = $services ?? require $ROOT . '/data/services.php';
 </footer>
 
 <!-- Core site JS first (no dependencies) so the preloader + UI never wait on CDN -->
-<script src="/assets/js/main.js?v=2" defer></script>
+<script src="/assets/js/main.js?v=3" defer></script>
 <!-- GSAP core + plugins -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -66,6 +66,6 @@ $services = $services ?? require $ROOT . '/data/services.php';
 <!-- Splitting.js -->
 <script src="https://unpkg.com/splitting/dist/splitting.min.js" defer></script>
 <!-- Motion layer (progressive enhancement, depends on GSAP) -->
-<script src="/assets/js/motion.js?v=2" defer></script>
+<script src="/assets/js/motion.js?v=3" defer></script>
 </body>
 </html>

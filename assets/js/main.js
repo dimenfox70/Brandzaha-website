@@ -125,6 +125,26 @@
     });
   }
 
+  /* ---------- Pointer-parallax scenes (e.g. e-commerce hero) ---------- */
+  if (canHover && !reduce) {
+    document.querySelectorAll('[data-pointer-scene]').forEach((scene) => {
+      const layers = scene.querySelectorAll('[data-depth]');
+      scene.addEventListener('mousemove', (e) => {
+        const r = scene.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        layers.forEach((el) => {
+          const d = parseFloat(el.getAttribute('data-depth')) || 10;
+          el.style.setProperty('--px', (px * d).toFixed(1) + 'px');
+          el.style.setProperty('--py', (py * d).toFixed(1) + 'px');
+        });
+      });
+      scene.addEventListener('mouseleave', () => {
+        layers.forEach((el) => { el.style.setProperty('--px', '0px'); el.style.setProperty('--py', '0px'); });
+      });
+    });
+  }
+
   /* ---------- Reveal on scroll (IntersectionObserver fallback) ---------- */
   const reveals = document.querySelectorAll('.reveal');
   if (reveals.length) {

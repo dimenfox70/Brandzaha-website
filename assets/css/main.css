@@ -592,6 +592,95 @@ body.nav-open .nav-overlay { clip-path: circle(150% at calc(100% - 3rem) 3rem); 
 .badge-404 { font-family: var(--font-display); font-size: clamp(6rem, 30vw, 22rem); line-height: .8; color: transparent; -webkit-text-stroke: 2px var(--accent); }
 
 /* =============================================================
+   E-COMMERCE HERO — the showpiece (extra motion)
+   ============================================================= */
+.ecom-hero {
+  position: relative; min-height: 100svh;
+  display: grid; grid-template-columns: 1fr; align-items: center; gap: 2rem;
+  padding-top: clamp(8rem, 16vh, 12rem); padding-bottom: clamp(3rem, 6vw, 5rem);
+  overflow: hidden;
+}
+@media (min-width: 940px) { .ecom-hero { grid-template-columns: 1.05fr .95fr; } }
+.ecom-hero__text { position: relative; z-index: 3; }
+.ecom-hero__visual { position: relative; min-height: clamp(360px, 54vh, 660px); perspective: 1000px; }
+
+.ecom-glow {
+  position: absolute; width: 62%; aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle, #95BF47, transparent 62%);
+  filter: blur(72px); opacity: .5; right: -8%; top: 30%; z-index: 0;
+  transform: translate(var(--px, 0px), var(--py, 0px));
+  transition: transform .4s ease-out;
+  animation: ecomPulse 6s ease-in-out infinite;
+}
+
+/* Shopify mark — big, half off the right edge, floating with shadow */
+.shopify-mark {
+  position: absolute; right: -15%; top: 50%; width: clamp(300px, 42vw, 600px); z-index: 1;
+  transform: translate(var(--px, 0px), calc(-50% + var(--py, 0px)));
+  transition: transform .4s ease-out;
+}
+.shopify-mark__img {
+  filter: drop-shadow(0 48px 60px rgba(0,0,0,.6)) drop-shadow(0 14px 44px rgba(149,191,71,.5));
+  animation: ecomFloat 7s ease-in-out infinite;
+}
+
+/* Phone mockup with live store screen */
+.phone { position: absolute; left: 0; bottom: -2%; width: clamp(196px, 22vw, 280px); z-index: 2;
+  transform: translate(var(--px, 0px), var(--py, 0px)); transition: transform .4s ease-out; }
+@media (min-width: 940px) { .phone { left: 4%; } }
+.phone__inner { transform: rotate(-7deg); animation: ecomFloatB 6.5s ease-in-out infinite;
+  filter: drop-shadow(0 44px 60px rgba(0,0,0,.65)); }
+.phone__frame { position: relative; border-radius: 34px; background: #050506; padding: 9px;
+  border: 1px solid rgba(255,255,255,.14); box-shadow: inset 0 0 0 2px rgba(255,255,255,.04); }
+.phone__notch { position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+  width: 36%; height: 18px; background: #050506; border-radius: 0 0 13px 13px; z-index: 4; }
+.phone__screen { position: relative; border-radius: 26px; overflow: hidden; background: #0c0c0e; aspect-ratio: 9 / 19; }
+
+/* Mini store UI inside the phone */
+.store { position: absolute; inset: 0; display: flex; flex-direction: column; color: #f4f4f0; font-size: 11px; line-height: 1.3; }
+.store__bar { display: flex; justify-content: space-between; align-items: center; padding: 15px 13px 8px; }
+.store__logo { font-family: var(--font-display); letter-spacing: .06em; font-size: 15px; }
+.store__cart { position: relative; }
+.store__cart b { position: absolute; top: -5px; right: -6px; background: var(--accent); color: #000; border-radius: 50%; width: 13px; height: 13px; display: grid; place-items: center; font-size: 8px; font-weight: 700; }
+.store__hero { flex: 1.35; background-size: cover; background-position: center; position: relative; }
+.store__tag { position: absolute; left: 10px; bottom: 10px; background: var(--accent); color: #000; font-weight: 700; font-size: 8px; padding: 3px 8px; border-radius: 20px; letter-spacing: .08em; }
+.store__body { padding: 11px 13px 13px; display: flex; flex-direction: column; gap: 7px; background: linear-gradient(180deg, #101012, #0a0a0b); }
+.store__row { display: flex; justify-content: space-between; align-items: baseline; }
+.store__title { font-weight: 600; }
+.store__stars { color: var(--accent); font-size: 9px; letter-spacing: 1px; }
+.store__price { color: var(--accent); font-weight: 700; }
+.store__price s { color: var(--ink-dim); font-weight: 400; margin-left: 4px; }
+.store__btn { background: var(--accent); color: #000; border-radius: 20px; padding: 8px; text-align: center; font-weight: 700; font-size: 10px; letter-spacing: .03em; animation: ecomPulseBtn 2.4s ease-in-out infinite; }
+.store__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+.store__grid i { aspect-ratio: 1; border-radius: 8px; background: linear-gradient(135deg, #2a2410, #100d07); }
+.store__grid i:nth-child(2) { background: linear-gradient(135deg, #14231a, #0a120d); }
+.store__grid i:nth-child(3) { background: linear-gradient(135deg, #1c1424, #0d0a12); }
+
+/* Floating stat chips */
+.ecom-chip { position: absolute; z-index: 3; background: rgba(18,18,20,.74); backdrop-filter: blur(10px);
+  border: 1px solid var(--line-2); border-radius: 100px; padding: .5em 1em; font-weight: 600;
+  font-size: var(--step--1); display: inline-flex; gap: .5em; align-items: center; white-space: nowrap; }
+.ecom-chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+.ecom-chip--a { top: 10%; right: 6%; animation: ecomFloatC 5.5s ease-in-out infinite; }
+.ecom-chip--b { bottom: 12%; right: 16%; animation: ecomFloatC 6.2s ease-in-out infinite; animation-delay: -2s; }
+
+@keyframes ecomFloat  { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-18px) rotate(2.5deg); } }
+@keyframes ecomFloatB { 0%,100% { transform: rotate(-7deg) translateY(0); } 50% { transform: rotate(-5deg) translateY(-14px); } }
+@keyframes ecomFloatC { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes ecomPulse  { 0%,100% { opacity: .42; } 50% { opacity: .62; } }
+@keyframes ecomPulseBtn { 0%,100% { box-shadow: 0 0 0 0 rgba(216,255,54,.5); } 50% { box-shadow: 0 0 0 9px rgba(216,255,54,0); } }
+
+@media (max-width: 939px) {
+  .ecom-hero__visual { min-height: 400px; margin-top: 1rem; }
+  .shopify-mark { right: -18%; }
+  .ecom-chip--a { top: 2%; }
+}
+/* Prevent wide stat values (e.g. ₹10Cr+) clipping on small screens */
+@media (max-width: 430px) {
+  .stat__num { font-size: clamp(2.3rem, 1.4rem + 6vw, 3rem); word-break: break-word; }
+}
+
+/* =============================================================
    REDUCED MOTION
    ============================================================= */
 @media (prefers-reduced-motion: reduce) {

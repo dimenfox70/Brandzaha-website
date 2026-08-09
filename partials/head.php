@@ -60,7 +60,7 @@ $schemas = array_merge([$orgSchema], $meta['schema'] ?? []);
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 
 <!-- Local design system CSS first (render-blocking, fast, self-hosted) -->
-<link rel="stylesheet" href="/assets/css/main.css?v=2">
+<link rel="stylesheet" href="/assets/css/main.css?v=3">
 
 <!-- Fonts: Epilogue (body/UI) + Anton (display) — loaded non-blocking so a slow
      CDN never blocks rendering or scripts; fallback fonts show instantly. -->
