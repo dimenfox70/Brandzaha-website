@@ -1,13 +1,8 @@
-# OS / editor
+node_modules/
+.next/
+out/
+.env*.local
 .DS_Store
-Thumbs.db
-*.swp
-.idea/
-.vscode/
-
-# Logs / temp
 *.log
-/tmp/
-
-# Rate-limit buckets (created at runtime by send_mail.php)
-bz_rl_*
+npm-debug.log*
+.vercel

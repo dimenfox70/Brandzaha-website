@@ -1,91 +1,77 @@
-# BrandZaha Website — v2
+# BrandZaha — Website (Next.js)
 
-A lean, portfolio-first, cinematic agency website for **BrandZaha** (Jaipur).
-Dark UI · lime `#d8ff36` accent · CSS-3D + GSAP motion system · **no framework, no database, no build step.**
+A dark, cinematic, portfolio-first website for **BrandZaha**, a creative & digital
+agency in Jaipur. Rebuilt in **Next.js (App Router)** with **Framer Motion** and
+**Lenis** for rich animation and instant page transitions.
 
-Deployable to standard PHP shared hosting (PHP 8+, Apache with `mod_rewrite`).
+## Highlights
 
----
+- **Booklet portfolio** (`/work`) — an interactive flip-book of projects: two-page
+  spreads (picture + case-study details), drag / arrow-key page turns, a progress
+  bar, and a **filmstrip scroller** to jump between projects.
+- **AI chatbot** — "Ask Zaha AI" floating assistant (bottom-right) backed by
+  `/api/chat`. Ships with a smart rule-based demo brain and is **ready to plug into
+  a real LLM** — set `OPENAI_API_KEY` (and optionally `OPENAI_MODEL`) and it proxies
+  to the model automatically. Voice agent is stubbed ("coming soon") for the next pass.
+- **Animated E-commerce page** (`/ecommerce`) — a big Shopify bag bleeding off the
+  hero with a live phone-store mockup, floating stat chips, and mouse-parallax depth;
+  platform breakdown for **Shopify / WooCommerce / headless Next.js**.
+- **Tech-ready products** section — our own IP (ZahaCommerce, ZahaCRM, ZahaBot,
+  ZahaLearn, ZahaEstate, ZahaDine) shown on Home and Work.
+- Full motion system: split-text reveals, 3D tilt cards, magnetic buttons, custom
+  cursor, full-screen animated menu, preloader, marquees, animated counters — all
+  `prefers-reduced-motion` aware.
 
 ## Stack
 
-- **PHP 8+** server-rendered partials — no database, no build tooling.
-- **Modern CSS** (`assets/css/main.css`) — custom properties, Grid/Flex, no Bootstrap.
-- **Vanilla JS** (`assets/js/main.js`) — core UI, zero dependencies, runs first.
-- **Motion layer** (`assets/js/motion.js`) — progressive enhancement using
-  GSAP (ScrollTrigger, Flip), Lenis smooth scroll and Splitting.js (all via CDN, deferred).
-- **Apache `.htaccess`** — clean URLs, 301 redirects, security headers, caching, gzip/brotli.
+- **Next.js 14** (App Router, React Server Components) · **React 18**
+- **Framer Motion** (animation) · **Lenis** (smooth scroll)
+- **next/font** self-hosted Google fonts (Anton + Epilogue) — no CDN, fast LCP
+- Hand-written CSS design system (`app/globals.css`) — no Tailwind, no UI kit
+- API routes for the chatbot (`/api/chat`) and lead form (`/api/contact`)
 
-The site is **fully functional without JavaScript and without the CDN libraries**:
-content is server-rendered, external CSS/JS load non-blocking, and a failsafe
-guarantees the preloader never traps content.
+## Run locally
+
+```bash
+npm install
+npm run dev        # http://localhost:3000
+npm run build && npm start   # production
+```
+
+## Deploy
+
+Deploy to **Vercel** (recommended) or any Node host. Optional env vars:
+
+| Variable | Purpose |
+|----------|---------|
+| `OPENAI_API_KEY` | Makes the chatbot answer with a real LLM (else demo brain). |
+| `OPENAI_MODEL` | Override model (default `gpt-4o-mini`). |
+| `RESEND_API_KEY` | Delivers contact-form emails via Resend (else logged in dev). |
 
 ## Structure
 
 ```
-partials/    bootstrap.php, functions.php, head.php, header.php, footer.php
-data/        site.php, projects.php, services.php, testimonials.php, posts.php, landing.php
-assets/      css/main.css, js/main.js, js/motion.js, img/, work/<slug>/
-index.php work.php project.php services.php about.php blog.php contact.php
-service-landing.php  send_mail.php  sitemap.php  404.php
-.htaccess  robots.txt
+app/
+  layout.jsx  template.jsx  globals.css   page.jsx (Home)
+  work/page.jsx  work/[slug]/page.jsx      services/page.jsx
+  ecommerce/page.jsx  about/page.jsx  blog/  contact/page.jsx
+  api/chat/route.js   api/contact/route.js   sitemap.js  robots.js  not-found.jsx
+components/  Booklet, Chatbot, EcomHero, Header, Footer, Cursor, Preloader,
+             SmoothScroll, Reveal, SplitText, TiltCard, Magnetic, Counter,
+             Marquee, WorkCard, ServiceFlip, Products, ContactForm, Faq, Icon, Poster
+lib/         site, projects, services, products, testimonials, posts, poster
 ```
 
-## Pages & routes
+## Content
 
-| URL | File |
-|-----|------|
-| `/` | `index.php` |
-| `/work/` | `work.php` |
-| `/work/<slug>/` | `project.php?slug=…` |
-| `/services/` | `services.php` |
-| `/about/` | `about.php` |
-| `/blog/` | `blog.php` |
-| `/contact/` | `contact.php` |
-| 9 SEO pages (e.g. `/web-development-jaipur/`, `/it-training-jaipur/`) | `service-landing.php?service=…` |
-| `/sitemap.xml` | `sitemap.php` (dynamic) |
-| 404 | `404.php` |
+All content lives in `lib/*.js`. Add a project = one entry in `lib/projects.js`
+(it appears in the booklet, gets a `/work/<slug>` page, and joins the sitemap).
+Images fall back to generated gradient posters until real assets are added.
 
-All v1 → v2 **301 redirects** are configured in `.htaccess` (clients, team, case-studies,
-old case-study URLs, erp/crm/hrm → software, contact-us, about-us).
+## Legacy
 
-## Adding a portfolio project
-
-1. Add one entry to `data/projects.php` (copy an existing block).
-2. Drop images in `assets/work/<slug>/` (`hero.webp`, `01.webp`, …).
-   **Missing images fall back to a generated gradient poster** — the site always renders.
-3. Done — it appears on `/work/`, gets a page at `/work/<slug>/`, and joins the
-   next-project loop and sitemap automatically.
-
-## Lead forms
-
-All forms POST to `send_mail.php` (AJAX, JSON response) which is hardened with:
-input sanitisation, header-injection guards, a honeypot field, and per-IP rate limiting.
-Mail is sent via PHP `mail()` to `brandzaha@gmail.com`.
-
-## Analytics
-
-GTM `GTM-PF8QR9LK` and GA4 `G-B2B6188HCL` are installed in `partials/head.php`.
-
-## Accessibility & motion
-
-Semantic HTML, keyboard navigable, visible focus states, skip link, and full
-`prefers-reduced-motion` support (all animation disabled, content static).
-
-## Local preview
-
-```bash
-# from the project root
-php -S localhost:8000
-# then browse http://localhost:8000/  (clean URLs need Apache; the built-in
-# server serves files directly — use the included router for full routing)
-```
-
-## To do before launch (assets)
-
-- Replace generated gradient posters with real WebP/AVIF images in `assets/work/<slug>/`
-  and `assets/img/` (studio, team, blog).
-- Add `assets/img/og-default.jpg` (1200×630) and `apple-touch-icon.png`.
+The previous hand-built PHP version is preserved under **`legacy-php/`** for
+reference (still deployable to shared hosting).
 
 ---
 
