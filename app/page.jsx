@@ -71,7 +71,11 @@ export default function Home() {
           <Reveal delay={0.15}><Link href="/services" className="tlink" style={{ fontSize: 'var(--step-1)' }}>All services ↗</Link></Reveal>
         </div>
         <div className="svc-grid">
-          {services.slice(0, 4).map((s, i) => <Reveal key={s.title} delay={i * 0.06}><ServiceFlip s={s} n={i + 1} /></Reveal>)}
+          {services.slice(0, 4).map((s, i) => (
+            <Reveal key={s.title} delay={i * 0.06} style={{ height: '100%' }}>
+              <ServiceFlip s={s} n={i + 1} />
+            </Reveal>
+          ))}
         </div>
       </section>
 

@@ -29,11 +29,11 @@ const KB = {
   ai:
     "Yes! We build AI chatbots and voice agents (like me), plus workflow automations — trained on your content to answer questions and capture leads 24/7. This very assistant is one of our ZahaBot builds.",
   contact:
-    "You can reach the team at 📧 info@brandzaha.com, 📞 +91-6376509220 (also WhatsApp), or the form at /contact. Studio hours: Mon–Sat, 10am–7pm, Jaipur.",
+    "You can reach the team at 📧 Brandzaha@gmail.com, 📞 +91-6376509220 (also WhatsApp), or the form at /contact. Studio hours: Mon–Sat, 10am–7pm, Jaipur.",
   location: "We're based in Jaipur, Rajasthan — 606 C, 7th Floor, Gordhan Sky, Jhotwara. We work with clients across India and beyond.",
   thanks: "Anytime! 🙌 If you'd like, tell me a bit about your project and I'll point you the right way — or reach the team at /contact.",
   fallback:
-    "Good question! I can help with our services, e-commerce, pricing, portfolio, AI, IT training or contact details. Could you tell me a little more — or reach the team directly at info@brandzaha.com?",
+    "Good question! I can help with our services, e-commerce, pricing, portfolio, AI, IT training or contact details. Could you tell me a little more — or reach the team directly at Brandzaha@gmail.com?",
 };
 
 function demoReply(message) {
@@ -55,7 +55,7 @@ function demoReply(message) {
 
 const SYSTEM = `You are Zaha, the friendly AI assistant for BrandZaha, a creative & digital agency in Jaipur, India.
 Services: web & app development (React/Next.js), e-commerce (Shopify, WooCommerce, headless Next.js), branding, digital marketing & SEO, AI chatbots/automation, custom software (ERP/CRM/HRM), and IT training.
-Contact: info@brandzaha.com, +91-6376509220, Jaipur. Be concise, warm and helpful; guide users toward /contact for quotes. Never invent prices beyond "marketing sites start around ₹50k".`;
+Contact: Brandzaha@gmail.com, +91-6376509220, Jaipur. Be concise, warm and helpful; guide users toward /contact for quotes. Never invent prices beyond "marketing sites start around ₹50k".`;
 
 async function liveReply(message, history) {
   // OpenAI

@@ -9,7 +9,7 @@ declare(strict_types=1);
 header('Content-Type: application/json; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
 
-$RECIPIENT = 'brandzaha@gmail.com';
+$RECIPIENT = 'Brandzaha@gmail.com';
 $SUBJECT_PREFIX = '[BrandZaha Lead]';
 
 function respond(bool $ok, string $message, int $code = 200): void {

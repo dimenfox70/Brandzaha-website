@@ -7,6 +7,7 @@ import Counter from '@/components/Counter';
 import Poster from '@/components/Poster';
 import TiltCard from '@/components/TiltCard';
 import Magnetic from '@/components/Magnetic';
+import FounderPhoto from '@/components/FounderPhoto';
 
 export const metadata = {
   title: 'About',
@@ -14,14 +15,6 @@ export const metadata = {
   alternates: { canonical: '/about' },
 };
 
-const team = [
-  ['Himanshi Shrivastav', 'Creative Lead', 'himanshi'],
-  ['Aarav Mehta', 'Design Director', 'aarav'],
-  ['Neha Gupta', 'Engineering Lead', 'neha'],
-  ['Karan Singh', 'Growth & Strategy', 'karan'],
-  ['Isha Verma', 'Brand Designer', 'isha'],
-  ['Rohan Jain', 'Full-stack Developer', 'rohan'],
-];
 const steps = [
   ['Listen first', 'We start by understanding — your business, your customers, your constraints. The brief is a conversation, not a form.'],
   ['Design with intent', 'Nothing is decorative for its own sake. Every choice ladders up to a goal you can measure.'],
@@ -57,7 +50,7 @@ export default function AboutPage() {
         <div className="stats">
           <Reveal className="stat"><div className="stat__num"><Counter value={String(site.founded)} /></div><div className="stat__label">Founded in Jaipur</div></Reveal>
           <Reveal className="stat" delay={0.06}><div className="stat__num"><Counter value="200+" /></div><div className="stat__label">Projects delivered</div></Reveal>
-          <Reveal className="stat" delay={0.12}><div className="stat__num"><Counter value="15" /></div><div className="stat__label">People in the studio</div></Reveal>
+          <Reveal className="stat" delay={0.12}><div className="stat__num"><Counter value="8+" /></div><div className="stat__label">Years crafting</div></Reveal>
           <Reveal className="stat" delay={0.18}><div className="stat__num"><Counter value="98%" /></div><div className="stat__label">Would work with us again</div></Reveal>
         </div>
       </section>
@@ -71,17 +64,25 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="section wrap">
-        <div className="sec-head"><div><p className="eyebrow">The team</p><h2 className="h2 sec-head__title"><SplitText text="The people behind the pixels." /></h2></div></div>
-        <div className="team-grid">
-          {team.map((m, i) => (
-            <Reveal key={m[2]} delay={(i % 3) * 0.06}>
-              <TiltCard className="team-card" max={6}>
-                <div className="team-card__media"><Poster palette={['#141414', '#232323', '#d8ff36']} seed={m[2]} alt={m[0]} /></div>
-                <div className="team-card__body"><h3>{m[0]}</h3><span>{m[1]}</span></div>
-              </TiltCard>
-            </Reveal>
-          ))}
+      <section className="section wrap" aria-label="Founder">
+        <div className="sec-head">
+          <div>
+            <p className="eyebrow">The founder</p>
+            <h2 className="h2 sec-head__title"><SplitText text="The person behind BrandZaha." /></h2>
+          </div>
+        </div>
+        <div className="founder">
+          <Reveal>
+            <FounderPhoto alt="Himanshi Shrivastav, Founder of BrandZaha" />
+          </Reveal>
+          <Reveal delay={0.1} className="founder__copy">
+            <p className="founder__role">Founder &amp; Creative Director</p>
+            <h3 className="founder__name">Himanshi Shrivastav</h3>
+            <div className="prose" style={{ marginTop: '1.1rem' }}>
+              <p>Himanshi founded BrandZaha in {site.founded} in Jaipur with a simple brief: make work that looks unforgettable and actually performs. She leads the studio’s creative direction — from brand systems and cinematic websites to e-commerce and AI experiences for founders across India.</p>
+              <p>Her approach is hands-on and detail-obsessed: listen first, design with intent, and stay close after launch. Every BrandZaha project still carries that founder standard — craft you can feel, and results you can measure.</p>
+            </div>
+          </Reveal>
         </div>
       </section>
 

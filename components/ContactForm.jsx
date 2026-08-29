@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { site } from '@/lib/site';
 import Icon from './Icon';
 
 export default function ContactForm({ variant = 'full', formName = 'Contact', pageUrl = '/contact', hidden = {} }) {
@@ -17,7 +18,7 @@ export default function ContactForm({ variant = 'full', formName = 'Contact', pa
       setStatus({ msg: json.message, ok: json.success });
       if (json.success) e.target.reset();
     } catch {
-      setStatus({ msg: 'Network error — please try again or email info@brandzaha.com.', ok: false });
+      setStatus({ msg: `Network error — please try again or email ${site.contact.email}.`, ok: false });
     } finally {
       setBusy(false);
     }

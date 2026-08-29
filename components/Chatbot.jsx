@@ -33,7 +33,7 @@ export default function Chatbot() {
       const data = await res.json();
       setMessages((m) => [...m, { role: 'bot', text: data.reply || "Sorry, I didn't catch that — try rephrasing?" }]);
     } catch {
-      setMessages((m) => [...m, { role: 'bot', text: 'I hit a snag connecting. You can reach the team at info@brandzaha.com or +91-6376509220.' }]);
+      setMessages((m) => [...m, { role: 'bot', text: 'I hit a snag connecting. You can reach the team at Brandzaha@gmail.com or +91-6376509220.' }]);
     } finally {
       setBusy(false);
     }

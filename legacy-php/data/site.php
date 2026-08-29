@@ -19,7 +19,7 @@ return [
         'country'    => 'IN',
         'phone'      => '+91-6376509220',
         'phone_raw'  => '916376509220',
-        'email'      => 'info@brandzaha.com',
+        'email'      => 'Brandzaha@gmail.com',
         'hours'      => 'Mon–Sat, 10:00 AM – 7:00 PM',
         'maps'       => 'https://www.google.com/maps/search/?api=1&query=Gordhan+Sky+Jhotwara+Jaipur',
     ],

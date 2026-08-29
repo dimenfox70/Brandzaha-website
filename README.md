@@ -46,7 +46,8 @@ Deploy to **Vercel** (recommended) or any Node host. Optional env vars:
 |----------|---------|
 | `OPENAI_API_KEY` | Makes the chatbot answer with a real LLM (else demo brain). |
 | `OPENAI_MODEL` | Override model (default `gpt-4o-mini`). |
-| `RESEND_API_KEY` | Delivers contact-form emails via Resend (else logged in dev). |
+| `RESEND_API_KEY` | Delivers contact-form emails via Resend (recommended in production). |
+| `CONTACT_TO` | Override lead inbox (default `Brandzaha@gmail.com`). |
 
 ## Structure
 

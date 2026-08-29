@@ -25,12 +25,16 @@ export default function ServicesPage() {
         <div className="glow hero__glow-a" aria-hidden="true" style={{ opacity: 0.16 }} />
         <p className="eyebrow"><Reveal as="span">Capabilities</Reveal></p>
         <h1 className="page-head__title"><SplitText hero text="What we" /><br /><span className="text-accent"><SplitText hero text="do." /></span></h1>
-        <Reveal as="p" className="page-head__lead lead" delay={0.15}>Strategy, design, engineering and growth — a full-stack creative team that takes ideas from blank page to measurable results. Hover any card.</Reveal>
+        <Reveal as="p" className="page-head__lead lead" delay={0.15}>Strategy, design, engineering and growth — a full-stack creative team that takes ideas from blank page to measurable results. Hover a card on desktop, or scroll to read each one on mobile.</Reveal>
       </section>
 
       <section className="section wrap">
         <div className="svc-grid">
-          {services.map((s, i) => <Reveal key={s.title} delay={(i % 4) * 0.06}><ServiceFlip s={s} n={i + 1} /></Reveal>)}
+          {services.map((s, i) => (
+            <Reveal key={s.title} delay={(i % 4) * 0.06} style={{ height: '100%' }}>
+              <ServiceFlip s={s} n={i + 1} />
+            </Reveal>
+          ))}
         </div>
       </section>
 
