@@ -1,12 +1,13 @@
 import Link from 'next/link';
-import { products } from '@/lib/products';
+import { getProducts } from '@/lib/products';
 import { poster } from '@/lib/poster';
 import Icon from './Icon';
 import Reveal from './Reveal';
 import TiltCard from './TiltCard';
 import SplitText from './SplitText';
 
-export default function Products() {
+export default async function Products() {
+  const products = await getProducts();
   return (
     <section className="section wrap" id="products">
       <div className="sec-head">

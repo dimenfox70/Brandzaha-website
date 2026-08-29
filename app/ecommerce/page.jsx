@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { projects } from '@/lib/projects';
+import { getProjects } from '@/lib/projects';
 import { poster } from '@/lib/poster';
 import Reveal from '@/components/Reveal';
 import SplitText from '@/components/SplitText';
@@ -40,7 +40,8 @@ const feats = [
   ['grid', 'Migration & support', 'Move from any platform without losing rankings — and keep improving after launch.'],
 ];
 
-export default function EcommercePage() {
+export default async function EcommercePage() {
+  const projects = await getProjects();
   const ecomWork = projects.filter((p) => p.category.includes('E-commerce'));
   const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) };
 

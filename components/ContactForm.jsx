@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { site } from '@/lib/site';
+import { site } from '@/lib/data/site';
 import Icon from './Icon';
 
 export default function ContactForm({ variant = 'full', formName = 'Contact', pageUrl = '/contact', hidden = {} }) {

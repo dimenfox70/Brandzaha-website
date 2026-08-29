@@ -1,19 +1,20 @@
 import { NextResponse } from 'next/server';
-import { site } from '@/lib/site';
+import { getSite } from '@/lib/site';
+import { supabaseAdmin } from '@/lib/supabase/server';
 
 export const runtime = 'nodejs';
 
 /*
  * Contact / lead form handler.
- * All website forms POST here and are delivered to Brandzaha@gmail.com.
+ * All website forms POST here. Every valid submission is stored as a lead
+ * in Supabase (visible in the CMS admin panel) and, on top of that,
+ * delivered by email.
  *
  * Delivery order:
  *   1. Resend, if RESEND_API_KEY is set
  *   2. FormSubmit.co fallback (first live submit sends a confirmation
- *      email to Brandzaha@gmail.com — click Activate to start receiving)
+ *      email to the lead inbox — click Activate to start receiving)
  */
-
-const LEAD_INBOX = process.env.CONTACT_TO || site.contact.email || 'Brandzaha@gmail.com';
 
 const hits = new Map();
 function limited(ip) {
@@ -24,9 +25,28 @@ function limited(ip) {
   return arr.length > 5;
 }
 
-async function deliver({ subject, body, replyTo, fields }) {
-  const to = LEAD_INBOX;
+async function storeLead(data, { name, email, message, ip }) {
+  const db = supabaseAdmin();
+  if (!db) return;
+  const { error } = await db.from('leads').insert({
+    name,
+    email,
+    phone: data.phone || null,
+    message,
+    form_name: data.form_name || 'Website',
+    page_url: data.page_url || null,
+    project_type: data.project_type || null,
+    budget: data.budget || null,
+    timeline: data.timeline || null,
+    service: data.service || null,
+    platform: data.platform || null,
+    duration: data.duration || null,
+    ip,
+  });
+  if (error) console.error('[contact] Supabase insert error', error);
+}
 
+async function deliver({ to, subject, body, replyTo, fields }) {
   if (process.env.RESEND_API_KEY) {
     const r = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -65,6 +85,8 @@ async function deliver({ subject, body, replyTo, fields }) {
 }
 
 export async function POST(req) {
+  const site = await getSite();
+  const leadInbox = process.env.CONTACT_TO || site.contact.email || 'Brandzaha@gmail.com';
   try {
     const ip = req.headers.get('x-forwarded-for')?.split(',')[0] || 'local';
     if (limited(ip)) return NextResponse.json({ success: false, message: 'Too many messages — try again shortly.' }, { status: 429 });
@@ -78,6 +100,8 @@ export async function POST(req) {
     if (name.length < 2) return NextResponse.json({ success: false, message: 'Please enter your name.' });
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return NextResponse.json({ success: false, message: 'Please enter a valid email address.' });
     if (!message) return NextResponse.json({ success: false, message: 'Please add a short message.' });
+
+    await storeLead(data, { name, email, message, ip });
 
     const fieldKeys = ['phone', 'project_type', 'budget', 'timeline', 'service', 'platform', 'duration', 'form_name', 'page_url'];
     const extra = fieldKeys.map((k) => (data[k] ? `${k}: ${data[k]}` : null)).filter(Boolean).join('\n');
@@ -97,6 +121,7 @@ export async function POST(req) {
     };
 
     await deliver({
+      to: leadInbox,
       subject: `[BrandZaha Lead] ${data.form_name || 'Website'} — ${name}`,
       body,
       replyTo: email,
@@ -104,6 +129,6 @@ export async function POST(req) {
     });
     return NextResponse.json({ success: true, message: `Thank you, ${name}! We’ll be in touch within one business day.` });
   } catch {
-    return NextResponse.json({ success: false, message: `Something went wrong — please email ${LEAD_INBOX}.` }, { status: 500 });
+    return NextResponse.json({ success: false, message: `Something went wrong — please email ${leadInbox}.` }, { status: 500 });
   }
 }

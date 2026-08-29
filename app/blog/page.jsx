@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { posts } from '@/lib/posts';
+import { getPosts } from '@/lib/posts';
 import Reveal from '@/components/Reveal';
 import SplitText from '@/components/SplitText';
 import Poster from '@/components/Poster';
@@ -14,7 +14,8 @@ export const metadata = {
 
 const fmt = (d) => new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const posts = await getPosts();
   const featured = posts[0];
   return (
     <main id="main">

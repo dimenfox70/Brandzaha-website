@@ -3,10 +3,11 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
-import { site } from '@/lib/site';
+import { site as defaultSite } from '@/lib/data/site';
 import Magnetic from './Magnetic';
 
-export default function Header() {
+export default function Header({ site: siteProp }) {
+  const site = siteProp || defaultSite;
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();

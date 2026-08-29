@@ -3,12 +3,9 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
-import { projects } from '@/lib/projects';
+import { projects as defaultProjects } from '@/lib/data/projects';
 import { poster } from '@/lib/poster';
 import Icon from './Icon';
-
-const pages = [{ cover: true }, ...projects];
-const last = pages.length - 1;
 
 const variants = {
   enter: (d) => ({ rotateY: d > 0 ? 88 : -88, opacity: 0, x: d > 0 ? 70 : -70 }),
@@ -16,7 +13,10 @@ const variants = {
   exit: (d) => ({ rotateY: d > 0 ? -88 : 88, opacity: 0, x: d > 0 ? -70 : 70 }),
 };
 
-export default function Booklet() {
+export default function Booklet({ projects: projectsProp }) {
+  const projects = projectsProp || defaultProjects;
+  const pages = [{ cover: true }, ...projects];
+  const last = pages.length - 1;
   const [[i, dir], set] = useState([0, 0]);
   const clamp = (n) => Math.max(0, Math.min(last, n));
   const go = (d) => set(([ci]) => [clamp(ci + d), d]);

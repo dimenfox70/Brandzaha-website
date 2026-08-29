@@ -1,4 +1,4 @@
-import { site } from '@/lib/site';
+import { getSite } from '@/lib/site';
 import Reveal from '@/components/Reveal';
 import SplitText from '@/components/SplitText';
 import ContactForm from '@/components/ContactForm';
@@ -11,7 +11,8 @@ export const metadata = {
   alternates: { canonical: '/contact' },
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const site = await getSite();
   return (
     <main id="main">
       <section className="page-head wrap">

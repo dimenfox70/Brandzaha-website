@@ -1,8 +1,9 @@
-import { site } from '@/lib/site';
-import { projects } from '@/lib/projects';
-import { posts } from '@/lib/posts';
+import { getSite } from '@/lib/site';
+import { getProjects } from '@/lib/projects';
+import { getPosts } from '@/lib/posts';
 
-export default function sitemap() {
+export default async function sitemap() {
+  const [site, projects, posts] = await Promise.all([getSite(), getProjects(), getPosts()]);
   const base = site.domain;
   const now = new Date();
   const core = ['', '/work', '/services', '/ecommerce', '/about', '/blog', '/contact'];

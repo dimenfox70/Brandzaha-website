@@ -1,9 +1,10 @@
 import Link from 'next/link';
-import { site } from '@/lib/site';
-import { services } from '@/lib/services';
+import { getSite } from '@/lib/site';
+import { getServices } from '@/lib/services';
 import Reveal from './Reveal';
 
-export default function Footer() {
+export default async function Footer() {
+  const [site, services] = await Promise.all([getSite(), getServices()]);
   return (
     <footer className="site-footer">
       <div className="wrap">

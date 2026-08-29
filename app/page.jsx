@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { projects } from '@/lib/projects';
-import { services } from '@/lib/services';
-import { testimonials } from '@/lib/testimonials';
+import { getProjects } from '@/lib/projects';
+import { getServices } from '@/lib/services';
+import { getTestimonials } from '@/lib/testimonials';
 import Reveal from '@/components/Reveal';
 import SplitText from '@/components/SplitText';
 import Magnetic from '@/components/Magnetic';
@@ -11,7 +11,8 @@ import WorkCard from '@/components/WorkCard';
 import ServiceFlip from '@/components/ServiceFlip';
 import Products from '@/components/Products';
 
-export default function Home() {
+export default async function Home() {
+  const [projects, services, testimonials] = await Promise.all([getProjects(), getServices(), getTestimonials()]);
   const featured = projects.filter((p) => p.featured).slice(0, 4);
   return (
     <main id="main">

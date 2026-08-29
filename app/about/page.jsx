@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { testimonials } from '@/lib/testimonials';
-import { site } from '@/lib/site';
+import { getTestimonials } from '@/lib/testimonials';
+import { getSite } from '@/lib/site';
 import Reveal from '@/components/Reveal';
 import SplitText from '@/components/SplitText';
 import Counter from '@/components/Counter';
@@ -22,7 +22,8 @@ const steps = [
   ['Stay in it', 'We’re partners, not vendors. We stick around to measure, learn and keep the work sharp.'],
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const [testimonials, site] = await Promise.all([getTestimonials(), getSite()]);
   return (
     <main id="main">
       <section className="page-head wrap">

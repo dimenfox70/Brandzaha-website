@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { getProjects } from '@/lib/projects';
 import Reveal from '@/components/Reveal';
 import SplitText from '@/components/SplitText';
 import Booklet from '@/components/Booklet';
@@ -11,7 +12,8 @@ export const metadata = {
   alternates: { canonical: '/work' },
 };
 
-export default function WorkPage() {
+export default async function WorkPage() {
+  const projects = await getProjects();
   return (
     <main id="main">
       <section className="page-head wrap">
@@ -22,7 +24,7 @@ export default function WorkPage() {
       </section>
 
       <section className="section wrap" style={{ paddingTop: 'clamp(1rem,3vw,2rem)' }}>
-        <Booklet />
+        <Booklet projects={projects} />
       </section>
 
       <Products />

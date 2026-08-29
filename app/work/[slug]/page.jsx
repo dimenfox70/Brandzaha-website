@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { projects, getProject, getNext } from '@/lib/projects';
+import { getProjects, getProjectBySlug, getNextProject } from '@/lib/projects';
 import { poster } from '@/lib/poster';
 import Reveal from '@/components/Reveal';
 import SplitText from '@/components/SplitText';
@@ -8,20 +8,22 @@ import Counter from '@/components/Counter';
 import Poster from '@/components/Poster';
 import TiltCard from '@/components/TiltCard';
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const projects = await getProjects();
   return projects.map((p) => ({ slug: p.slug }));
 }
 
-export function generateMetadata({ params }) {
-  const p = getProject(params.slug);
+export async function generateMetadata({ params }) {
+  const p = await getProjectBySlug(params.slug);
   if (!p) return { title: 'Not found' };
   return { title: `${p.title} — Case Study`, description: p.summary, alternates: { canonical: `/work/${p.slug}` } };
 }
 
-export default function ProjectPage({ params }) {
-  const p = getProject(params.slug);
+export default async function ProjectPage({ params }) {
+  const projects = await getProjects();
+  const p = projects.find((x) => x.slug === params.slug);
   if (!p) notFound();
-  const next = getNext(p.slug);
+  const next = await getNextProject(p.slug, projects);
   const accent = p.accent;
 
   const schema = {

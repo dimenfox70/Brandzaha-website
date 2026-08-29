@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { services } from '@/lib/services';
+import { getServices } from '@/lib/services';
 import Reveal from '@/components/Reveal';
 import SplitText from '@/components/SplitText';
 import ServiceFlip from '@/components/ServiceFlip';
@@ -18,7 +18,8 @@ const steps = [
   ['Grow', 'Launch is the start. We measure, iterate and optimise so the work keeps paying off long after go-live.'],
 ];
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const services = await getServices();
   return (
     <main id="main">
       <section className="page-head wrap">
