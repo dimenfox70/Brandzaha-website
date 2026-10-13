@@ -25,25 +25,28 @@ function limited(ip) {
 }
 
 async function deliver({ subject, body, replyTo, fields }) {
-  const to = LEAD_INBOX;
+  const to = LEAD_INBOX.toLowerCase();
 
   if (process.env.RESEND_API_KEY) {
-    const r = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${process.env.RESEND_API_KEY}` },
-      body: JSON.stringify({
-        from: process.env.CONTACT_FROM || 'BrandZaha Website <no-reply@brandzaha.com>',
-        to,
-        subject,
-        text: body,
-        reply_to: replyTo,
-      }),
-    });
-    if (!r.ok) {
-      console.error('[contact] Resend error', await r.text());
-      throw new Error('Resend failed');
+    try {
+      const r = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${process.env.RESEND_API_KEY}` },
+        body: JSON.stringify({
+          from: process.env.CONTACT_FROM || 'BrandZaha Website <no-reply@brandzaha.com>',
+          to,
+          subject,
+          text: body,
+          reply_to: replyTo,
+        }),
+      });
+      if (!r.ok) throw new Error(await r.text());
+      return;
+    } catch (err) {
+      // Resend misconfigured or down — fall through to the FormSubmit fallback
+      // below instead of losing the lead outright.
+      console.error('[contact] Resend error, falling back to FormSubmit', err);
     }
-    return;
   }
 
   const r = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(to)}`, {
@@ -58,7 +61,7 @@ async function deliver({ subject, body, replyTo, fields }) {
     }),
   });
   const json = await r.json().catch(() => ({}));
-  if (!r.ok || json.success === false || json.success === 'false') {
+  if (!r.ok || !(json.success === true || json.success === 'true')) {
     console.error('[contact] FormSubmit error', json);
     throw new Error('Mail delivery failed');
   }
