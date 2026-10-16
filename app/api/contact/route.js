@@ -14,6 +14,7 @@ export const runtime = 'nodejs';
  */
 
 const LEAD_INBOX = process.env.CONTACT_TO || site.contact.email || 'Brandzaha@gmail.com';
+const SITE_URL = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || 'https://brandzaha.com';
 
 const hits = new Map();
 function limited(ip) {
@@ -55,7 +56,12 @@ async function deliver({ subject, body, replyTo, fields }) {
 
   const r = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(to)}`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Origin: SITE_URL,
+      Referer: `${SITE_URL}/contact`,
+    },
     body: JSON.stringify({
       _subject: subject,
       _template: 'box',
@@ -66,7 +72,7 @@ async function deliver({ subject, body, replyTo, fields }) {
   });
   const json = await r.json().catch(() => ({}));
   if (!r.ok || !(json.success === true || json.success === 'true')) {
-    console.error('[contact] FormSubmit error', json);
+    console.error('[contact] FormSubmit error:', json.message || json);
     throw new Error('Mail delivery failed');
   }
 }
