@@ -25,7 +25,11 @@ function limited(ip) {
 }
 
 async function deliver({ subject, body, replyTo, fields }) {
-  const to = LEAD_INBOX.toLowerCase();
+  // Keep the configured casing verbatim — FormSubmit.co's per-address
+  // activation record is keyed by the exact string in the URL, so changing
+  // case (e.g. to lower-case) silently points at an unactivated address
+  // even though it's the same Gmail inbox.
+  const to = LEAD_INBOX;
 
   if (process.env.RESEND_API_KEY) {
     try {
