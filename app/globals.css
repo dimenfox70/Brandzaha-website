@@ -915,7 +915,9 @@ body.nav-open .nav-overlay { clip-path: circle(150% at calc(100% - 3rem) 3rem); 
 @media (prefers-reduced-motion: reduce) { .marquee__track { animation: none !important; } }
 
 /* ---- Page transition (Next template) ---- */
-.pt { will-change: transform, opacity; }
+/* No lasting transform/will-change here: either would trap position:fixed children. */
+.pt { animation: bz-pt .5s cubic-bezier(.22,1,.36,1) both; }
+@keyframes bz-pt { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 
 /* ---- Booklet scroller filmstrip ---- */
 .film-strip { display: flex; gap: .8rem; overflow-x: auto; padding: 1.6rem .2rem .6rem; scroll-snap-type: x proximity; scrollbar-width: thin; scrollbar-color: var(--line-2) transparent; }

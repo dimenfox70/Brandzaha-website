@@ -1,11 +1,17 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { site } from '@/lib/site';
 import Icon from './Icon';
 
 export default function ContactForm({ variant = 'full', formName = 'Contact', pageUrl = '/contact', hidden = {} }) {
   const [status, setStatus] = useState({ msg: '', ok: null });
   const [busy, setBusy] = useState(false);
+  // Links can preset the enquiry subject, e.g. /contact?subject=Zaha%20setup%20day
+  const [subject, setSubject] = useState('');
+  useEffect(() => {
+    const s = new URLSearchParams(window.location.search).get('subject');
+    if (s) setSubject(s.trim().slice(0, 80));
+  }, []);
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -26,7 +32,8 @@ export default function ContactForm({ variant = 'full', formName = 'Contact', pa
 
   return (
     <form className="stack" onSubmit={onSubmit} noValidate>
-      <input type="hidden" name="form_name" value={formName} />
+      <input type="hidden" name="form_name" value={subject || formName} />
+      {subject && <p className="pill" style={{ color: 'var(--ink)' }}>Subject: <strong>{subject}</strong></p>}
       <input type="hidden" name="page_url" value={pageUrl} />
       {Object.entries(hidden).map(([k, v]) => <input key={k} type="hidden" name={k} value={v} />)}
       <div className="hp" aria-hidden="true"><label>Leave empty<input type="text" name="website" tabIndex={-1} autoComplete="off" /></label></div>

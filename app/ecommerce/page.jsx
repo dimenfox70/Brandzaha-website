@@ -10,6 +10,7 @@ import Poster from '@/components/Poster';
 import Faq from '@/components/Faq';
 import ContactForm from '@/components/ContactForm';
 import EcomHero from '@/components/EcomHero';
+import ZahaTeaser from '@/components/zaha/ZahaTeaser';
 
 export const metadata = {
   title: 'E-commerce — Shopify, WooCommerce & Next.js',
@@ -118,6 +119,11 @@ export default function EcommercePage() {
             </Reveal>
           ))}
         </div>
+      </section>
+
+      {/* ZAHA AI SHOPPING ASSISTANT */}
+      <section className="section wrap" aria-label="Zaha AI shopping assistant" style={{ paddingTop: 0 }}>
+        <ZahaTeaser />
       </section>
 
       {/* FAQ + FORM */}

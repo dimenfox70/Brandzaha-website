@@ -19,7 +19,7 @@ export default function Footer() {
           </div>
           <div className="footer-col">
             <h4>Sitemap</h4>
-            <ul>{site.nav.slice(0, 7).map((i) => <li key={i.label}><Link href={i.url} className="tlink">{i.label}</Link></li>)}</ul>
+            <ul>{site.nav.slice(0, 8).map((i) => <li key={i.label}><Link href={i.url} className="tlink">{i.label}</Link></li>)}</ul>
           </div>
           <div className="footer-col">
             <h4>Services</h4>
