@@ -6,6 +6,12 @@ const nextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
   },
+  async redirects() {
+    return [
+      // The Zaha page moved here from its first URL.
+      { source: '/ai-shopping-assistant', destination: '/zaha-ai-shopping-assistant', permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

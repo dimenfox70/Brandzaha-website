@@ -1,7 +1,6 @@
 import { ImageResponse } from 'next/og';
-import { zaha } from '@/lib/zaha';
 
-export const alt = zaha.seo.ogAlt;
+export const alt = 'Zaha AI Shopping Assistant by BrandZaha: an AI stylist for your Shopify store';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -18,9 +17,9 @@ export default function OpengraphImage() {
           </div>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <div style={{ display: 'flex', alignSelf: 'flex-start', background: '#d8ff36', color: '#0a0a0a', borderRadius: 100, padding: '8px 20px', fontSize: 24, fontWeight: 700 }}>
-              {`${zaha.hero.pill.tag} · ${zaha.hero.pill.text}`}
+              New · Live camera try-on
             </div>
-            <div style={{ fontSize: 92, fontWeight: 800, lineHeight: 0.95, letterSpacing: -2, marginTop: 28, textTransform: 'uppercase' }}>{zaha.hero.title.join(' ')}</div>
+            <div style={{ fontSize: 92, fontWeight: 800, lineHeight: 0.95, letterSpacing: -2, marginTop: 28, textTransform: 'uppercase' }}>Your store, now with a stylist.</div>
           </div>
           <div style={{ fontSize: 28, color: '#b7b7b1' }}>Zaha AI Shopping Assistant</div>
         </div>

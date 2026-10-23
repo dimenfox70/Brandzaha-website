@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import { site } from '@/lib/site';
+import { zaha } from '@/lib/zaha';
 import Magnetic from './Magnetic';
 
 export default function Header() {
@@ -24,6 +25,9 @@ export default function Header() {
     addEventListener('keydown', onKey);
     return () => removeEventListener('keydown', onKey);
   }, [open]);
+
+  // The Zaha product page has its own top bar with the BrandZaha logo.
+  if (pathname === zaha.path) return null;
 
   return (
     <>

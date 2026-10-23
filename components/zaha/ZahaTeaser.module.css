@@ -1,0 +1,49 @@
+/* Zaha teaser card (used on /ecommerce). Builds on the site tokens in app/globals.css. */
+
+.teaser {
+  position: relative; overflow: hidden; display: grid; gap: 2rem; grid-template-columns: minmax(0, 1fr); align-items: center;
+  padding: clamp(1.8rem, 4vw, 3.2rem); border: 1px solid var(--line); border-radius: var(--radius-lg);
+  background: linear-gradient(140deg, var(--bg-3), var(--bg-2)); transition: border-color .4s var(--ease);
+}
+.teaser:hover { border-color: var(--line-2); }
+@media (min-width: 860px) { .teaser { grid-template-columns: minmax(0, 1.4fr) minmax(0, .6fr); } }
+.teaser h2 { font-size: clamp(2.2rem, 1.2rem + 3.6vw, 4.4rem); line-height: .92; margin-top: .7rem; }
+.teaser p:global(.muted) { margin-top: 1rem; max-width: 52ch; }
+
+.label {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .7rem;
+  font-size: var(--step--1); letter-spacing: .2em; text-transform: uppercase;
+  color: var(--ink-dim); font-weight: 600;
+}
+.badge {
+  display: inline-flex; align-items: center;
+  font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  padding: .32em .78em; border-radius: 100px; line-height: 1.2; white-space: nowrap;
+  background: var(--accent); color: var(--accent-ink); border: 1px solid var(--accent);
+}
+.actions { display: flex; flex-wrap: wrap; gap: .9rem; margin-top: clamp(1.6rem, 3vw, 2.2rem); }
+
+/* Mirror ring with orbiting product tiles */
+.art { position: relative; width: 100%; max-width: 240px; aspect-ratio: 1; justify-self: center; }
+.ring {
+  position: absolute; top: 20%; left: 20%; width: 60%; aspect-ratio: 1;
+  border-radius: 50%; border: 2px solid rgba(244,244,240,.85);
+  box-shadow: 0 0 80px -20px rgba(216,255,54,.35), inset 0 0 50px rgba(244,244,240,.05);
+}
+.ring::after { content: ""; position: absolute; inset: -5%; border-radius: 50%; border: 1px solid rgba(216,255,54,.5); }
+.glass { position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 34% 28%, rgba(244,244,240,.1), transparent 58%); }
+.orbit { position: absolute; inset: -30%; animation: orbit 36s linear infinite; }
+.orbit i {
+  position: absolute; left: 50%; top: 50%; width: 7%; aspect-ratio: 3 / 4; margin: -4.67% 0 0 -3.5%;
+  transform: rotate(var(--a)) translateY(-456%) rotate(calc(var(--a) * -1));
+}
+.orbit i::before {
+  content: ""; position: absolute; inset: 0; border-radius: 5px; background: var(--c);
+  box-shadow: 0 8px 24px rgba(0,0,0,.45);
+  animation: orbit 36s linear infinite reverse;
+}
+@keyframes orbit { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit, .orbit i::before { animation: none !important; }
+}
